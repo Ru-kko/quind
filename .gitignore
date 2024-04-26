@@ -1,0 +1,7 @@
+/backend/.mvn/
+/backend/mvn**
+/backend/target
+
+
+**/.vscode
+.vscode
