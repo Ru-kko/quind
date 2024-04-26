@@ -34,7 +34,7 @@ public class Client {
 
   @Size(min = 2, message = "should containt at least 2 characters")
   @Column(nullable = false)
-  private String fistName;
+  private String fristName;
   @Size(min = 2, message = "should containt at least 2 characters")
   @Column(nullable = false)
   private String lastName;
