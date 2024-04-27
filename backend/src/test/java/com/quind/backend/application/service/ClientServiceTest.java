@@ -23,6 +23,7 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import com.quind.backend.domain.dto.ClientBasicData;
 import com.quind.backend.domain.model.Client;
+import com.quind.backend.infra.errors.QuindError;
 
 import jakarta.validation.ValidationException;
 
@@ -39,36 +40,41 @@ public class ClientServiceTest {
 
   @Test
   void testDeleteClient() {
-    UUID id = UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11");
+    UUID id = UUID.fromString("a7f4a41b-5c87-4d72-9672-0e82b3c1d467");
     assertDoesNotThrow(() -> clientService.deleteClient(id));
 
     int count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM client WHERE client_id = ?", Integer.class, id);
     assertEquals(0, count);
+
+    // * Should not delete because have active accounts
+    UUID errorId = UUID.fromString("17e62166-fc85-86df-a4d1-bc0e1742c08b");
+
+    assertThrows(QuindError.class,() -> clientService.deleteClient(errorId));
   }
 
   @Test
   void testGetAll() {
     Page<Client> result = clientService.getAll(0);
-    assertTrue(result.getTotalElements() >= 3);
+    assertTrue(result.getTotalElements() >= 4);
   }
 
   @Test
   void testGetByEmail() {
-    String email = "maria.gomez@example.com";
+    String email = "michael.johnson@example.com";
     Client result = clientService.getByEmail(email);
     assertNotNull(result);
-    assertEquals("Maria", result.getFirstName());
-    assertEquals("Gomez", result.getLastName());
+    assertEquals("Michael", result.getFirstName());
+    assertEquals("Johnson", result.getLastName());
   }
 
   @Test
   void testGetById() {
-    UUID id = UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11");
+    UUID id = UUID.fromString("1f5c4e23-5bc3-4cd6-a0df-2b765e5d008a");
     Client result = clientService.getById(id);
     assertNotNull(result);
     assertNotNull(result.getCreatedAt());
-    assertEquals("Juan", result.getFirstName());
-    assertEquals("Perez", result.getLastName());
+    assertEquals("Michael", result.getFirstName());
+    assertEquals("Johnson", result.getLastName());
   }
 
   @Test
@@ -76,7 +82,7 @@ public class ClientServiceTest {
     var formatter = new SimpleDateFormat("yyyy-mm-dd");
     var date = formatter.parse("1990-01-01");
 
-    ClientBasicData data = new ClientBasicData("Jonh", "Doe", date, "john.doe@example.com");
+    ClientBasicData data = new ClientBasicData("Jane", "Doe", date, "jane.doe@example.com");
 
     Client response1 = clientService.regiterClient(data);
 
@@ -98,7 +104,7 @@ public class ClientServiceTest {
 
   @Test
   void testUpdateClient() {
-    UUID id = UUID.fromString("c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13");
+    UUID id = UUID.fromString("f47ac10b-58cc-4372-a567-0e02b2c3d479");
     ClientBasicData newData = new ClientBasicData();
     newData.setLastName("UpdatedLastName");
 
