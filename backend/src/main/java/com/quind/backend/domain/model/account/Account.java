@@ -3,12 +3,13 @@ package com.quind.backend.domain.model.account;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import com.quind.backend.domain.model.Client;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,15 +33,15 @@ public class Account {
   private Long accountId;
   
   @ManyToOne
-  @JoinColumn(name = "id")
-  @Column(name = "clientId", nullable = false)
+  @JoinColumn(name = "clientId", nullable = false)
+  @OnDelete(action = OnDeleteAction.NO_ACTION)
   private Client owner;
   private BigDecimal balance;
 
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private AccountType type; // * Can be normalized in another table, also status field
 
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private AccountSatus status; 
 
   @Temporal(TemporalType.TIMESTAMP)

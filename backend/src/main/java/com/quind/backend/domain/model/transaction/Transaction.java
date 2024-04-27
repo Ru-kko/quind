@@ -7,8 +7,9 @@ import org.hibernate.annotations.UuidGenerator;
 
 import com.quind.backend.domain.model.account.Account;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -30,14 +31,15 @@ public class Transaction {
    private UUID id;
 
    @ManyToOne
-   @JoinColumn(name = "id")
-   @Column(name = "targetAccount", nullable = false)
+   @JoinColumn(name = "targetAccountId", nullable = true)
    private Account target;
 
    @ManyToOne
-   @JoinColumn(name = "id")
-   @Column(name = "targetAccount", nullable = true)
+   @JoinColumn(name = "transferAccountId", nullable = true)
    private Account transferTarget;
 
    private BigDecimal amount;
+   
+   @Enumerated(EnumType.STRING)
+   private TransactionType transactionType;
 }
