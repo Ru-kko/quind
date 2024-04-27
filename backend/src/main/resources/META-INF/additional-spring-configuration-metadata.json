@@ -1,0 +1,7 @@
+{"properties": [
+  {
+    "name": "app.page-size",
+    "type": "java.lang.Integer",
+    "description": ""
+  }
+]}
