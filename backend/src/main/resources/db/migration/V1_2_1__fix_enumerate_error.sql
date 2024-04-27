@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION generate_account_id()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.account_id = NULL THEN
+    IF NEW.account_id = NULL OR NEW.account_id = 0 THEN
         IF NEW.account_type = 'CHECKING' THEN
             NEW.account_id := 3300000000 + nextval('account_id_seq');
         ELSIF NEW.account_type = 'SAVING' THEN
