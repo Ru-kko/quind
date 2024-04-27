@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.quind.backend.application.service.ClientService;
 import com.quind.backend.domain.dto.ClientBasicData;
 import com.quind.backend.domain.model.Client;
 import com.quind.backend.infra.config.Properties;
+import com.quind.backend.infra.errors.QuindError;
 import com.quind.backend.infra.repositories.ClientRepository;
 
 import jakarta.validation.ValidationException;
@@ -100,7 +102,11 @@ class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public void deleteClient(UUID id) {
+  public void deleteClient(UUID id) throws QuindError {
+    Integer notCanceledAccounts = this.clientRepository.countNonCanceledAccountsByClientId(id);
+    if (notCanceledAccounts != 0) {
+      throw new QuindError("Can't delete a client with not canceled accounts", HttpStatus.BAD_REQUEST);
+    }
     clientRepository.deleteById(id);
   }
 
