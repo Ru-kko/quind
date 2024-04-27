@@ -12,7 +12,9 @@ VALUES
     (3300000003, '1f5c4e23-5bc3-4cd6-a0df-2b765e5d008a', 500.00, 'CHECKING', 'ACTIVE'),
     (5300054001, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 5000.00, 'SAVING', 'ACTIVE'),
     (5300454524, '17e62166-fc85-86df-a4d1-bc0e1742c08b', 7500.00, 'SAVING', 'ACTIVE'),
-    (5300000003, '1f5c4e23-5bc3-4cd6-a0df-2b765e5d008a', 10000.00, 'SAVING', 'ACTIVE');
+    (5300000003, '1f5c4e23-5bc3-4cd6-a0df-2b765e5d008a', 10000.00, 'SAVING', 'ACTIVE'),
+    (5300032153, 'a7f4a41b-5c87-4d72-9672-0e82b3c1d467', 0.00, 'SAVING', 'ACTIVE'),
+    (5300054553, 'a7f4a41b-5c87-4d72-9672-0e82b3c1d467', 0.00, 'SAVING', 'CANCELED');
 
 INSERT INTO transaction (id, target_account_id, transfer_account_id, amount, transaction_type)
 VALUES
