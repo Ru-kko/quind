@@ -38,10 +38,10 @@ public class Account {
   private BigDecimal balance;
 
   @Enumerated(EnumType.STRING)
-  private AccountType type; // * Can be normalized in another table, also status field
+  private AccountType accountType; // * Can be normalized in another table, also status field
 
   @Enumerated(EnumType.STRING)
-  private AccountSatus status; 
+  private AccountSatus accountStatus; 
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false, insertable = false) 
