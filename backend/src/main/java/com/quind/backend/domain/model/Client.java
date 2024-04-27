@@ -4,8 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.validation.annotation.Validated;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +22,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Validated
 @Table(name = "client")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +34,7 @@ public class Client {
 
   @Size(min = 2, message = "should containt at least 2 characters")
   @Column(nullable = false)
-  private String fristName;
+  private String firstName;
   @Size(min = 2, message = "should containt at least 2 characters")
   @Column(nullable = false)
   private String lastName;
@@ -48,9 +48,9 @@ public class Client {
   private String email;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @CreatedDate
+  @Column(nullable = false, updatable = false, insertable = false) 
   private Date createdAt;
   @Temporal(TemporalType.TIMESTAMP)
-  @LastModifiedDate
+  @Column(updatable = false, insertable = false)
   private Date updatedAt;
 }
