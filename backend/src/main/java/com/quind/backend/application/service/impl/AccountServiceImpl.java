@@ -107,7 +107,7 @@ public class AccountServiceImpl implements AccountService {
       throw new QuindError("Cand disable account with balance", HttpStatus.BAD_REQUEST);
     }
 
-    account.setAccountStatus(AccountSatus.INACTIVE);
+    account.setAccountStatus(AccountSatus.CANCELED);
     accountRepository.save(account);
   }
 
