@@ -10,7 +10,7 @@ INSERT INTO account (account_id, client_id, balance, account_type, account_statu
 VALUES
     (3300150001, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 1000.00, 'CHECKING', 'ACTIVE'),
     (3301003002, '17e62166-fc85-86df-a4d1-bc0e1742c08b', 2500.00, 'CHECKING', 'ACTIVE'),
-    (3300000003, '1f5c4e23-5bc3-4cd6-a0df-2b765e5d008a', 500.00, 'CHECKING', 'ACTIVE'),
+    (3300000003, '1f5c4e23-5bc3-4cd6-a0df-2b765e5d008a', 0.00, 'CHECKING', 'INACTIVE'),
     (5300054001, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 5000.00, 'SAVING', 'ACTIVE'),
     (5300454524, '17e62166-fc85-86df-a4d1-bc0e1742c08b', 7500.00, 'SAVING', 'ACTIVE'),
     (5300000003, '1f5c4e23-5bc3-4cd6-a0df-2b765e5d008a', 10000.00, 'SAVING', 'ACTIVE'),
