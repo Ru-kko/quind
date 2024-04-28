@@ -152,12 +152,14 @@ public class AccountServiceImpl implements AccountService {
     if (accountDestination == null) {
       throw new NotFoundError(String.format("Can't find account '%d'", destination));
     }
+    if (accountDestination.getAccountStatus() != AccountSatus.ACTIVE) {
+      throw new NotFoundError(String.format("Can't deposit on %s account", accountDestination.getAccountType()));
+    }
 
     verifyWithdrawal(accountOrigin, ammount);
 
     this.withdrawal(accountOrigin, ammount);
     this.deposit(accountDestination, ammount);
-
     Map<String, Account> response = new HashMap<>();
 
     response.put("origin", this.getAccount(origin));
@@ -166,19 +168,19 @@ public class AccountServiceImpl implements AccountService {
     return response;
   }
 
-  private Account deposit(Account ac, BigDecimal amount) {
+  public Account deposit(Account ac, BigDecimal amount) {
     BigDecimal newBalance = ac.getBalance().add(amount);
     ac.setBalance(newBalance);
     return accountRepository.save(ac);
   }
 
-  private Account withdrawal(Account ac, BigDecimal amount) {
+  public Account withdrawal(Account ac, BigDecimal amount) {
     BigDecimal newBalance = ac.getBalance().subtract(amount);
     ac.setBalance(newBalance);
     return accountRepository.save(ac);
   }
 
-  private void verifyWithdrawal(Account ac, BigDecimal amount) throws QuindError {
+  public void verifyWithdrawal(Account ac, BigDecimal amount) throws QuindError {
     if (ac.getAccountType() != AccountType.CHECKING) {
       return;
     }
