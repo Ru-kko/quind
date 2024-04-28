@@ -40,7 +40,7 @@ public class ClientServiceTest {
 
   @Test
   void testDeleteClient() {
-    UUID id = UUID.fromString("a7f4a41b-5c87-4d72-9672-0e82b3c1d467");
+    UUID id = UUID.fromString("b8e5b32c-3c88-4d73-9473-1e93b3d2f468");
     assertDoesNotThrow(() -> clientService.deleteClient(id));
 
     int count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM client WHERE client_id = ?", Integer.class, id);
