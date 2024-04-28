@@ -38,7 +38,7 @@ public class ClientController {
 
   @GetMapping
   public ResponseEntity<PageResponse<Client>> getAll(@RequestParam(name = "page", defaultValue = "1") Integer pageNum) {
-    return ResponseEntity.ok(new PageResponse<>(clientService.getAll(pageNum)));
+    return ResponseEntity.ok(new PageResponse<>(clientService.getAll(pageNum - 1)));
   }
 
   @GetMapping("/{id}")

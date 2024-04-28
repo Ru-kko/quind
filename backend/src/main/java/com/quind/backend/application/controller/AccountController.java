@@ -34,7 +34,7 @@ public class AccountController {
   @GetMapping("/client/{id}")
   public ResponseEntity<PageResponse<Account>> getClientAccounts(@PathVariable("id") UUID id,
       @RequestParam(name = "page", defaultValue = "1") Integer pagenum) {
-    return ResponseEntity.ok(new PageResponse<>(accountService.getClientAccounts(id, pagenum)));
+    return ResponseEntity.ok(new PageResponse<>(accountService.getClientAccounts(id, pagenum - 1)));
   }
 
   @GetMapping("/{id}")
