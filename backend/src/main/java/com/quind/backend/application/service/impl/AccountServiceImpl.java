@@ -60,6 +60,7 @@ public class AccountServiceImpl implements AccountService {
     newAccount.setBalance(BigDecimal.ZERO);
     newAccount.setAccountStatus(AccountSatus.ACTIVE);
     newAccount.setAccountType(register.getType());
+    newAccount.setOwner(owner);
     return accountRepository.save(newAccount);
   }
 
