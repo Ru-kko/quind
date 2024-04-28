@@ -20,6 +20,7 @@ import com.quind.backend.domain.model.account.Account;
 import com.quind.backend.domain.model.account.AccountSatus;
 import com.quind.backend.domain.model.account.AccountType;
 import com.quind.backend.infra.config.Properties;
+import com.quind.backend.infra.errors.InsufficientBalance;
 import com.quind.backend.infra.errors.NotFoundError;
 import com.quind.backend.infra.errors.QuindError;
 import com.quind.backend.infra.repositories.AccountRepository;
@@ -181,14 +182,13 @@ public class AccountServiceImpl implements AccountService {
   }
 
   public void verifyWithdrawal(Account ac, BigDecimal amount) throws QuindError {
-    if (ac.getAccountType() != AccountType.CHECKING) {
+    if (ac.getAccountType() == AccountType.CHECKING) {
       return;
     }
 
     BigDecimal currentBalance = ac.getBalance();
     if (currentBalance.compareTo(amount) < 0) {
-      throw new QuindError(String.format("Can't withdrawal more than %s on this account", currentBalance),
-          HttpStatus.BAD_REQUEST);
+      throw new InsufficientBalance(amount, ac.getAccountId(), ac.getBalance());
     }
   }
 }
